@@ -33,7 +33,8 @@ threshNumber = prctile(vectorvalues, 95);
 [gray] = spm_vol(grayfile);
 [gray] = spm_read_vols(gray);
 
-newrs = elementwise4D(rs,gray);
+gray = normalizeGray(gray);
+newrs = elementwise4D(rs,gray);%problem here, numbers in newrs are too big
 
 [thresh,numberOfNonZeros] = matrixThreshold(GLM,threshNumber);
 

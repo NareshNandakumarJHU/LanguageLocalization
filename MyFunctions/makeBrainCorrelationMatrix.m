@@ -7,18 +7,16 @@ function wholebrain = makeBrainCorrelationMatrix(X,Y,Z,img,comparisonseed,Correl
 %run by the x variable. 
 
 wholebrain = CorrelationMatrix;
-parfor x = 1:X
+for x = 1:X
     for y = 1:Y
         for z = 1:Z
-            if img(x,y,z)~=0
-                comparisonVector = findtimeseries(img,x,y,z);
-                if sum(sum(comparisonVector ~=0)) %error in DCC if one of the two inputs is a zero vector
-                    tic
-                    Ct = runDCCtwovector(comparisonseed,comparisonVector);
-                    toc
-                    Ctsimple = getCorrelationFromTwoVectorDCC(Ct);
-                    wholebrain(x,y,z,:) = Ctsimple(1,:);
-                end
+           
+            comparisonVector = findtimeseries(img,x,y,z);
+            if sum(sum(comparisonVector ~=0)) %error in DCC if one of the two inputs is a zero vector
+                Ct = runDCCtwovector(comparisonseed,comparisonVector);
+                Ctsimple = getCorrelationFromTwoVectorDCC(Ct);
+                wholebrain(x,y,z,:) = Ctsimple(1,:);
+                
             end
         end
     end
