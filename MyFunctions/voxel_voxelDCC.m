@@ -1,4 +1,4 @@
-function fullbraincorrelation = voxel_voxelDCC(rsfile,grayfile,GLMfile)
+function [fullbraincorrelation, seedmatrix] = voxel_voxelDCC(rsfile,grayfile,GLMfile,percentile)
 
 rs = spm_vol(rsfile);
 [rs, XYZ] = spm_read_vols(rs); %img is a 4D volume matrix
@@ -27,9 +27,9 @@ for x = 1:a
     end
 end
 
-threshNumber = prctile(vectorvalues, 95);
+seedmatrix = makeSeedImage(GLM,vectorvalues, percentile);
+threshNumber = prctile(vectorvalues, percentile);
 
-%do gray mask here
 [gray] = spm_vol(grayfile);
 [gray] = spm_read_vols(gray);
 
@@ -38,15 +38,13 @@ newrs = elementwise4D(rs,gray);%problem here, numbers in newrs are too big
 
 [thresh,numberOfNonZeros] = matrixThreshold(GLM,threshNumber);
 
-
 newmatrix = elementwise4D(rs,thresh); %intensity values of seed in resting state, all else 0
 SeedTimeCourse = avgTimeCourse(newmatrix,numberOfNonZeros);%gives back normalized data
 CorrelationMatrix = zeros(X,Y,Z,T);
 
 tic
-CorrelationMatrix = makeBrainCorrelationMatrix(X,Y,Z,newrs,SeedTimeCourse,CorrelationMatrix);
+CorrelationMatrix = makeVoxelVoxelBrainCorrelationMatrix(X,Y,Z,newrs,SeedTimeCourse,CorrelationMatrix);
 toc
-
 
 fullbraincorrelation = make_nii(CorrelationMatrix);
 end

@@ -1,0 +1,3 @@
+[voxelvoxelsubj4995, subj4seed995] = voxel_voxelDCC('/home/naresh/myshare/Sair_rsfMRI/Subj_04/rs/scrubbeds6fnfwvrars_fMRI.nii','/home/naresh/myshare/Sair_rsfMRI/Subj_04/wc1T1.nii','/home/naresh/myshare/Sair_rsfMRI/Subj_04/GLM/s6wraSC/spmT_0001.nii',99.5);
+
+[voxelvoxelsubj6995, subj6seed995] = voxel_voxelDCC('/home/naresh/myshare/Sair_rsfMRI/Subj_06/rs/scrubbeds6fnfwvrars_fMRI.nii','/home/naresh/myshare/Sair_rsfMRI/Subj_06/wc1T1.nii','/home/naresh/myshare/Sair_rsfMRI/Subj_06/GLM/s6wraSC/spmT_0001.nii',99.5);

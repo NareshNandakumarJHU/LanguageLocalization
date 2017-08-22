@@ -10,13 +10,11 @@ wholebrain = CorrelationMatrix;
 for x = 1:X
     for y = 1:Y
         for z = 1:Z
-           
             comparisonVector = findtimeseriesZscore(img,x,y,z);
             if sum(sum(comparisonVector ~=0)) %error in DCC if one of the two inputs is a zero vector
-                Ct = runDCCtwovector(comparisonseed,comparisonVector);
+                [~, Ct] = runDCCtwovector(comparisonseed,comparisonVector);
                 Ctsimple = getCorrelationFromTwoVectorDCC(Ct);
                 wholebrain(x,y,z,:) = Ctsimple(1,:);
-                
             end
         end
     end
