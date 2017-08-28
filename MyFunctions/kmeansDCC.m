@@ -1,7 +1,10 @@
-function [kmeansbraincorrelation, seedmatrix] = kmeansDCC(rsfile,GLMfile,percentile,clusternumber
+function [kmeansbraincorrelation, seedmatrix] = kmeansDCC(rsfile,GLMfile,percentile,clusternumber)
 
 %define rs and GLM matrices
 %and corresponding sizes
+
+tic
+
 rs = spm_vol(rsfile);
 rs = spm_read_vols(rs);
 
@@ -31,7 +34,8 @@ for X = 1:a
     end
 end
 
-%seedmatrix is just 1's and 0's used for visualization purposes
+%seedmatrix is just 1's and 0's used for visualization purposes. Then find
+%the seed time course to correlate with each region
 
 seedmatrix = makeSeedImage(GLM,vectorvalues, percentile);
 threshNumber = prctile(vectorvalues, percentile);
@@ -39,13 +43,29 @@ threshNumber = prctile(vectorvalues, percentile);
 newmatrix = elementwise4D(rs,thresh);
 SeedTimeCourse = avgTimeCourse(newmatrix,numberOfNonZeros);
 
+%Here is where Kmeans and clustering comes in. Find clusters and centroids
+%for each one, then create the (x,y,z) discreteClusteredMatrix of index
+%numbers
+
 fMRI = reshape(rs, [], d);
 [idx, centroid] = kmeans(fMRI,clusternumber);
 discreteClusteredMatrix = reshape(idx,x,y,z);
 
-[segmented, discreteClusteredMatrix] = segmentedByClusters(discreteClusteredMatrix,centroid);
+%Segmented and discreteClusteredMatrix are both (x,y,z,t) matrices.
+%Segmented has the centroid value which varies with time,
+%discreteClusteredMatrix just has cluster numbers and doesnt vary with
+%time.
 
-correlationMatrix = zeros(x,y,z,d);
+[segmented, discreteClusteredMatrixWithTime] = segmentedByClusters(discreteClusteredMatrix,centroid);
+correlationMatrix = zeros(x,y,z,d); %initialize final matrix
+
+%clusteredDCC takes the above inputs and runs DCC
+
+kmeansbraincorrelation = clusteredDCC(discreteClusteredMatrixWithTime,segmented,x,y,z,d,clusternumber,SeedTimeCourse,correlationMatrix);
+
+toc
+end
+
 
 
 

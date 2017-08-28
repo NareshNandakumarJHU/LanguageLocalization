@@ -43,7 +43,7 @@ SeedTimeCourse = avgTimeCourse(newmatrix,numberOfNonZeros);%gives back normalize
 CorrelationMatrix = zeros(X,Y,Z,T);
 
 tic
-CorrelationMatrix = makeVoxelVoxelBrainCorrelationMatrix(X,Y,Z,newrs,SeedTimeCourse,CorrelationMatrix);
+CorrelationMatrix = makeVoxelVoxelBrainCorrelationMatrixDCC_X(X,Y,Z,newrs,SeedTimeCourse,CorrelationMatrix);
 toc
 
 fullbraincorrelation = make_nii(CorrelationMatrix);

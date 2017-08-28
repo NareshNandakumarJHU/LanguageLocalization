@@ -1,5 +1,7 @@
 function correlationOnly = getCorrelationFromTwoVectorDCC(Ct)
 
+%output is a 1xT vector of correlations
+
 a = size(Ct,3);
 
 correlationOnly = zeros(1,a);
