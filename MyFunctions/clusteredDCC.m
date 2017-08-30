@@ -3,12 +3,12 @@ function KDCC = clusteredDCC(discreteClusteredMatrix,img,x,y,z,d,clusternumber,c
 %img is segmented by the cluster number given
 %as the first dimension of centroid matrix from main
 %script. discreteClusteredMatrix is a (x,y,z,T) matrix of
-%integers from 1 to clusters (in first case, 17) showing which
+%integers from 1 to clusters (in first case, 100) showing which
 %position gets what value. steps
 
 %1. Use discrete clustered in correspondance with img to find
-%the 17 clusters.
-%2. Find an average time course for each of 17 clusters
+%the 100 clusters.
+%2. Find an average time course for each of 100 clusters
 %3. run DCC with those time courses and the comparison seed
 %4. fill in correlation matrix with corresponding coordinates taken
 %from discrete clustered matrix

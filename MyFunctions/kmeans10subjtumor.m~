@@ -81,19 +81,47 @@ concatenatedVector = [beforeKmeans1 beforeKmeans2 beforeKmeans4 beforeKmeans6 be
 
 centroid1 = C(:,1:t1);
 centroid2 = C(:,t1+1:(t1+t2));
-centroid4 = C(:,(t1+t2+1):(t1+t2+t4);
-centroid6 = C(:,(t1+t2+t4+1):(t1+t2+t4+t6);
-centroid7 = C(:,(t1+t2+t4+t6+1):(t1+t2+t4+t6+t7);
-centroid8 = C(:,(t1+t2+t4+t6+t7+1):(t1+t2+t4+t6+t7+t8):
-centroid9 = C 
+centroid4 = C(:,(t1+t2+1):(t1+t2+t4));
+centroid6 = C(:,(t1+t2+t4+1):(t1+t2+t4+t6));
+centroid7 = C(:,(t1+t2+t4+t6+1):(t1+t2+t4+t6+t7));
+centroid8 = C(:,(t1+t2+t4+t6+t7+1):(t1+t2+t4+t6+t7+t8));
+centroid9 = C(:,(t1+t2+t4+t6+t7+t8+1):(t1+t2+t4+t6+t7+t8+t9)); 
+centroid10 = C(:,(t1+t2+t4+t6+t7+t8+t9+1):(t1+t2+t4+t6+t7+t8+t9+t10));
+centroid11 = C(:,(t1+t2+t4+t6+t7+t8+t9+t10+1):(t1+t2+t4+t6+t7+t8+t9+t10+t11));
+centroid12 = C(:,(t1+t2+t4+t6+t7+t8+t9+t10+t11+1):(t1+t2+t4+t6+t7+t8+t9+t10+t11+t12));
+
+discreteClusteredMatrix = reshape(idx,91,109,91);
+
+[segmented1, discreteClusteredMatrixWithTime1] = segmentedByClusters(discreteClusteredMatrix,centroid1);
+[segmented2, discreteClusteredMatrixWithTime2] = segmentedByClusters(discreteClusteredMatrix,centroid2);
+[segmented4, discreteClusteredMatrixWithTime4] = segmentedByClusters(discreteClusteredMatrix,centroid4);
+[segmented6, discreteClusteredMatrixWithTime6] = segmentedByClusters(discreteClusteredMatrix,centroid6);
+[segmented7, discreteClusteredMatrixWithTime7] = segmentedByClusters(discreteClusteredMatrix,centroid7);
+[segmented8, discreteClusteredMatrixWithTime8] = segmentedByClusters(discreteClusteredMatrix,centroid8);
+[segmented9, discreteClusteredMatrixWithTime9] = segmentedByClusters(discreteClusteredMatrix,centroid9);
+[segmented10, discreteClusteredMatrixWithTime10] = segmentedByClusters(discreteClusteredMatrix,centroid10);
+[segmented11, discreteClusteredMatrixWithTime11] = segmentedByClusters(discreteClusteredMatrix,centroid11);
+[segmented12, discreteClusteredMatrixWithTime12] = segmentedByClusters(discreteClusteredMatrix,centroid12);
+
+%all above segmented have very large tumor values (1000) 
+%that drown out the other values.
+
+
+languageseed1 = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_01/GLM/s6wraSC_1/spmT_0001.nii',rssubj1,99.5);
+languageseed2 = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_02/GLM/s6wraSC_Arabic/spmT_0001.nii',rssubj2,99.5);
+languageseed4 = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_04/GLM/s6wraSC/spmT_0001.nii',rssubj4,99.5);
+languageseed6 = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_06/GLM/s6wraSC/spmT_0001.nii',rsssubj6,99.5);
 
 
 
 
 
 
+KDCC1 = trueclusteredDCC(discreteClusteredMatrix,centroid1,languageseed1);
+KDCC2 = trueclusteredDCC(discreteClusteredMatrix,centroid2,languageseed2);
 
-
+%KDCC images look good so far, the background seems to be getting a
+%correlation as well.
 
 
 

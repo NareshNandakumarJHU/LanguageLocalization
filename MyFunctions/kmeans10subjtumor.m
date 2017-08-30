@@ -90,12 +90,52 @@ centroid10 = C(:,(t1+t2+t4+t6+t7+t8+t9+1):(t1+t2+t4+t6+t7+t8+t9+t10));
 centroid11 = C(:,(t1+t2+t4+t6+t7+t8+t9+t10+1):(t1+t2+t4+t6+t7+t8+t9+t10+t11));
 centroid12 = C(:,(t1+t2+t4+t6+t7+t8+t9+t10+t11+1):(t1+t2+t4+t6+t7+t8+t9+t10+t11+t12));
 
+discreteClusteredMatrix = reshape(idx,91,109,91);
+
+[segmented1, discreteClusteredMatrixWithTime1] = segmentedByClusters(discreteClusteredMatrix,centroid1);
+[segmented2, discreteClusteredMatrixWithTime2] = segmentedByClusters(discreteClusteredMatrix,centroid2);
+[segmented4, discreteClusteredMatrixWithTime4] = segmentedByClusters(discreteClusteredMatrix,centroid4);
+[segmented6, discreteClusteredMatrixWithTime6] = segmentedByClusters(discreteClusteredMatrix,centroid6);
+[segmented7, discreteClusteredMatrixWithTime7] = segmentedByClusters(discreteClusteredMatrix,centroid7);
+[segmented8, discreteClusteredMatrixWithTime8] = segmentedByClusters(discreteClusteredMatrix,centroid8);
+[segmented9, discreteClusteredMatrixWithTime9] = segmentedByClusters(discreteClusteredMatrix,centroid9);
+[segmented10, discreteClusteredMatrixWithTime10] = segmentedByClusters(discreteClusteredMatrix,centroid10);
+[segmented11, discreteClusteredMatrixWithTime11] = segmentedByClusters(discreteClusteredMatrix,centroid11);
+[segmented12, discreteClusteredMatrixWithTime12] = segmentedByClusters(discreteClusteredMatrix,centroid12);
+
+%all above segmented have very large tumor values (1000) 
+%that drown out the other values.
+
+
+[languageseed1, seedmatrix1] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_01/GLM/s6wraSC_1/spmT_0001.nii',rssubj1,99.5);
+[languageseed2, seedmatrix2] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_02/GLM/s6wraSC_Arabic/spmT_0001.nii',rssubj2,99.5);
+[languageseed4, seedmatrix4] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_04/GLM/s6wraSC/spmT_0001.nii',rssubj4,99.5);
+[languageseed6, seedmatrix6] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_06/GLM/s6wraSC/spmT_0001.nii',rssubj6,99.5);
+[languageseed7, seedmatrix7] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_07/GLM/s6wraSC/spmT_0001.nii',rssubj7,99.5);
+[languageseed8, seedmatrix8] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_08/GLM/s6wraSC/spmT_0001.nii',rssubj8,99.5);
+[languageseed9, seedmatrix9] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_09/GLM/s6wraSC/spmT_0001.nii',rssubj9,99.5);
+[languageseed10, seedmatrix10] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_10/GLM/s6wraSC/spmT_0001.nii',rssubj10,99.5);
+[languageseed11, seedmatrix11] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_11/GLM/s6wraSC/spmT_0001.nii',rssubj11,99.5);
+[languageseed12, seedmatrix12] = findLanguageSeed('/home/naresh/myshare/Sair_rsfMRI/Subj_12/GLM/s6wraSC/spmT_0001.nii',rssubj12,99.5);
 
 
 
 
+KDCC1 = trueclusteredDCC(discreteClusteredMatrix,centroid1,languageseed1);
+KDCC2 = trueclusteredDCC(discreteClusteredMatrix,centroid2,languageseed2);
+KDCC4 = trueclusteredDCC(discreteClusteredMatrix,centroid4,languageseed4);
+KDCC6 = trueclusteredDCC(discreteClusteredMatrix,centroid6,languageseed6);
+KDCC7 = trueclusteredDCC(discreteClusteredMatrix,centroid7,languageseed7);
+KDCC8 = trueclusteredDCC(discreteClusteredMatrix,centroid8,languageseed8);
+KDCC9 = trueclusteredDCC(discreteClusteredMatrix,centroid9,languageseed9);
+KDCC10 = trueclusteredDCC(discreteClusteredMatrix,centroid10,languageseed10);
+KDCC11 = trueclusteredDCC(discreteClusteredMatrix,centroid11,languageseed11);
+KDCC12 = trueclusteredDCC(discreteClusteredMatrix,centroid12,languageseed12);
 
 
+
+%KDCC images look good so far, the background seems to be getting a
+%correlation as well.
 
 
 

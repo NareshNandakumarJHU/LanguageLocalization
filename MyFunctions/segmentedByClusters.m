@@ -14,7 +14,7 @@ for T = 1:time
         for a = 1:91
             for b = 1:109
                 for c = 1:91
-                    if final(a,b,c) == clusterIndex
+                    if final(a,b,c) == clusterIndex && centroidmatrix(clusterIndex,T) ~= 1000
                         test(a,b,c,T) = clusterIndex;
                         segmented(a,b,c,T) = centroidmatrix(clusterIndex,T);
                     end
